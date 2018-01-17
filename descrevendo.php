@@ -5,7 +5,7 @@
 	<title></title>
 </head>
 <body>
-	<form action="exibir.php" method="_POST">
+	<form action="exibir.php" method="post">
 		<?php 
 
 			$qtdDecisao = $_POST['decisao'];
@@ -13,9 +13,6 @@
 			
 			$_SESSION['decisao'] = $_POST['decisao'];
 			$_SESSION['restricoes'] = $_POST['restricoes'];
-
-			$arrayDecisao = array();
-			$arrayRestri = array();
 
 			for ($i=0; $i < $qtdDecisao; $i++) {
 		?> 
@@ -27,6 +24,7 @@
 		<?php } ?>
 
 		<br>
+
 		<?php 
 			for ($i=0; $i < $qtdRestri; $i++) {
 		?> 
@@ -38,12 +36,12 @@
 		?> 	
 						<label>
 							<?php echo $i+1; ?> Restricao <?php echo "X".$j; ?>:
-							<input type="text" name="<?php echo "rX".$i ?>">	
+							<input type="text" name="<?php echo "rX".$j ?>">	
 						</label>
 				<?php }elseif ($j < $qtdDecisao + 1) { ?>
 						<select name="sinal">
 							<option value="="> = </option>
-							<option value="<="> <=</option>
+							<option value="<="> <= </option>
 						</select>
 
 				<?php }else{?>
