@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<?php session_destroy(); ?>
 <html>
 <head>
 	<title>Sistema</title>
 </head>
 <body>
-	<h1>Bem vindo ao Sistema</h1>
+	<h1>Simplex</h1>
 
 	<form action="descrevendo.php" method="post">
 		
 	<fieldset>
-		<legend>Realizar login</legend>
+		<legend>Definir quantidade de Variaveis</legend>
 		
 		<table>
 			<tr>
