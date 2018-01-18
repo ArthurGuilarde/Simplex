@@ -5,7 +5,7 @@
 	<title></title>
 </head>
 <body>
-	<form action="exibir.php" method="post">
+	<form action="montar.php" method="post">
 		<?php 
 
 			$qtdDecisao = $_POST['decisao'];
@@ -36,10 +36,10 @@
 		?> 	
 						<label>
 							<?php echo $i+1; ?> Restricao <?php echo "X".$j; ?>:
-							<input type="text" name="<?php echo "rX".$j ?>">	
+							<input type="text" name="<?php echo "rX".$i.$j ?>">	
 						</label>
 				<?php }elseif ($j < $qtdDecisao + 1) { ?>
-						<select name="sinal">
+						<select name="<?php echo "sinal". $i; ?>">
 							<option value="="> = </option>
 							<option value="<="> <= </option>
 						</select>

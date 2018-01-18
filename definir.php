@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_destroy(); ?>
 <html>
 <head>
 	<title>Sistema</title>
