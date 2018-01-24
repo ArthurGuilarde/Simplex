@@ -56,8 +56,9 @@
 <h1>Equações de Restrições</h1>
 
 <?php 
-	$_SESSION['arGeral'][] = 0;
+	
 	for ($i=0; $i < $qtdRestri; $i++) {
+		$_SESSION['arGeral'][] = 0;
 ?> 
 <?php 
 		for ($j=0; $j < $qtdDecisao + 2; $j++) {
@@ -79,28 +80,23 @@
 				</label>
 		<?php }elseif ($j < $qtdDecisao + 1) { ?>
 				<?php  
+
+				for ($z=0; $z <  $qtdRestri ; $z++) { 
+					if ($i == $z) {
+						$_SESSION['arGeral'][] = 1;
+					}else{
+						$_SESSION['arGeral'][] = 0;
+					}
+				}
+
 				//TIRAR A DESIGUALDADE!!!
 				if ($_POST['sinal'.$i] == '<=') { 
 							$temp = 1;
-							$_SESSION['arGeral'][] = 1;
-
-							//fazer o numero de restriçoes 0
-							for ($n=0; $n < $qtdRestri-1; $n++) { 
-								$_SESSION['arGeral'][] = 0;
-							}
-							
-
 							$_SESSION['arRes'.$i][] = $temp;
 							$SinalNovo = "=";
 							$_SESSION['arRes'.$i][] = $SinalNovo;
 						}else{
 							$temp = 1;
-							$_SESSION['arGeral'][] = 1;
-
-							for ($n=0; $n < $qtdRestri-1; $n++) { 
-								$_SESSION['arGeral'][] = 0;
-							}
-
 							$_SESSION['arRes'.$i][] = $temp;
 							$_SESSION['arRes'.$i][] = $_POST['sinal'.$i];
 						}
