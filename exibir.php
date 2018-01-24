@@ -79,12 +79,17 @@
 
 $terminou = 0;
 
-while ($terminou != 1) {
+do {
 
 	//VERIFICANDO QUEM ENTRA
 	$maior = 0;
 	$maiorIndex = 0;
 	for ($j=0; $j < $c-1 ; $j++) { 
+		if ($matrixSolu[0][$j] < 0){
+			$temp = -1 * $matrixSolu[0][$j];
+		}else{
+			$temp = $matrixSolu[0][$j];
+		}
 		$temp = -1 * $matrixSolu[0][$j];
 		#echo "<br>".$temp."<br>"."<br>";
 		if ($temp > $maior) {
@@ -141,30 +146,34 @@ while ($terminou != 1) {
 			
 			$vaLinha = -1*$matrixSolu[$i][$maiorIndex];
 			#echo "Valor da linha: ".$vaLinha."<br>"."<br>";
+			$copiaPivot = array();
+			for($j=0; $j < $c; $j++){
+				$copiaPivot[]=$matrixSolu[$menorIndex][$j];
+
+			}
 			
-			if ($vaLinha != 0) {
-				for ($j=0; $j < $c ; $j++) { 
-					$temp = $matrixSolu[$i][$j];
-					#echo "Antes: ".$matrixSolu[$i][$j]."<br>"."<br>";
-					
-					$matrixSolu[$i][$j] = $temp + $vaLinha;
-					#echo "Depois: ".$matrixSolu[$i][$j]."<br>"."<br>";
-				}
-
-			}else{
-
+			for($j=0; $j < $c; $j++){
+				$temp = $copiaPivot[$j];			
+				$copiaPivot[$j] = $temp * $vaLinha;
+			}
+			
+			for($j=0; $j < $c; $j++){
+				$temp = $copiaPivot[$j];
+				$temp2 = $matrixSolu[$i][$j];
+				$matrixSolu[$i][$j] = $temp + $temp2;		
 			}
 
 		}else{
 
 		}
+		
 	}
 
 	//confirmar se precisa repitir
-	for ($j=1; $j <= $qtdDecisao; $j++) { 
+	for ($j=0; $j < $qtdRestri+1; $j++) { 
 		$ter = $matrixSolu[0][$j];
-		#echo "<br>".$temp."<br>"."<br>";
-		if ($ter <0) {
+		#echo "<br>".$ter."<br>"."<br>";
+		if ($ter < 0) {
 			$terminou = 0;
 			break;
 		}else{
@@ -173,7 +182,7 @@ while ($terminou != 1) {
 
 	}
 
-}
+}while ($terminou != 1);
 
 	for ($i=0; $i < $l ; $i++) { 
 		for ($j=0; $j < $c ; $j++) { 
