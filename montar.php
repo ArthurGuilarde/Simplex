@@ -6,6 +6,7 @@
 	$qtdRestri = $_SESSION['restricoes'];
 
 	$_SESSION['arDec'] = array();
+	$_SESSION['arGeral'] = array();
 
 	for ( $i=0; $i < $qtdRestri ; $i++) { 
 		$_SESSION['arRes'.$i] = array();
@@ -23,6 +24,7 @@
 <h1>Equação de Decisão</h1>
 <?php
 		//EXIBINDO OS VALORES DAS VARIAVEIS DE DECISAO 
+		$_SESSION['arGeral'][] = 1;
 		for ($i=0; $i < $qtdDecisao; $i++) {
 ?> 
 		<label>
@@ -30,7 +32,8 @@
 				  echo "X".$i;
 
 				  //MONTADNO ARRAY NA SESSION
-				  $_SESSION['arDec'][] = $_POST['dX'.$i];
+				  $_SESSION['arDec'][] = -1 * $_POST['dX'.$i];
+				  $_SESSION['arGeral'][] = -1 * $_POST['dX'.$i];
 
 				   ?> 
 			<?php if ($i < $qtdDecisao -1) {?>
@@ -38,13 +41,22 @@
 			<?php } ?>
 		</label>
 
-	<?php } ?>
+	<?php }
+		//Resultado
+		$_SESSION['arGeral'][] = 0;
+
+		//vairiaveis add
+		for ($i=0; $i < $qtdRestri ; $i++) { 
+			$_SESSION['arGeral'][] = 0;
+		}
+	 ?>
 
 	<br>
 
 <h1>Equações de Restrições</h1>
 
 <?php 
+	$_SESSION['arGeral'][] = 0;
 	for ($i=0; $i < $qtdRestri; $i++) {
 ?> 
 <?php 
@@ -58,7 +70,7 @@
 					echo "X".$j;
 
 					$_SESSION['arRes'.$i][] = $_POST['rX'.$i.$j];
-
+					$_SESSION['arGeral'][] = $_POST['rX'.$i.$j];
 					?>
 				<?php if ($j < $qtdDecisao -1) {?>
 					+
@@ -70,10 +82,26 @@
 				//TIRAR A DESIGUALDADE!!!
 				if ($_POST['sinal'.$i] == '<=') { 
 							$temp = 1;
+							$_SESSION['arGeral'][] = 1;
+
+							//fazer o numero de restriçoes 0
+							for ($n=0; $n < $qtdRestri-1; $n++) { 
+								$_SESSION['arGeral'][] = 0;
+							}
+							
+
 							$_SESSION['arRes'.$i][] = $temp;
 							$SinalNovo = "=";
 							$_SESSION['arRes'.$i][] = $SinalNovo;
 						}else{
+							$temp = 1;
+							$_SESSION['arGeral'][] = 1;
+
+							for ($n=0; $n < $qtdRestri-1; $n++) { 
+								$_SESSION['arGeral'][] = 0;
+							}
+
+							$_SESSION['arRes'.$i][] = $temp;
 							$_SESSION['arRes'.$i][] = $_POST['sinal'.$i];
 						}
 				?>
@@ -86,6 +114,8 @@
 					<?php print_r($_POST['rX'.$i.'resultado']); echo "X".$j;
 
 						$_SESSION['arRes'.$i][] = $_POST['rX'.$i.'resultado'];
+
+						$_SESSION['arGeral'][] = $_POST['rX'.$i.'resultado'];
 					?>
 					
 				</label>
