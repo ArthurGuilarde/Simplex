@@ -11,30 +11,6 @@
 <body>
 
 <?php 
-
-	foreach ($_SESSION['arDec'] as $key => $value) {
-		print_r($value);
-	}
- ?>
-
-<br>
-
-<?php 
-	$teste= array();
-	for ($i=0; $i < $qtdRestri ; $i++) { 
-		foreach ($_SESSION['arRes'.$i] as $key => $value) {
-			print_r($value);
-		};
-	?>
-	<br>
-<?php 	
-	}
-
- ?>
-<br>
-<br>
-
-<?php 
 	$l = $qtdRestri+1;
 	$c = $qtdDecisao+$qtdRestri+2;
 	
@@ -51,29 +27,6 @@
 			}
 		}
 	}
-
- ?>
-
-
-<?php 
-
-	foreach ($_SESSION['arGeral'] as $key => $value) {
-		print_r($value);
-	}
- ?>
-<br>
-<br>
-
- <?php 
-
-	for ($i=0; $i < $l ; $i++) { 
-		for ($j=0; $j < $c ; $j++) { 
-		 echo $matrixSolu[$i][$j]."\t"."\t";
-		}
-		echo "<br>"."<br>";
-	}
-
-	echo "<br>"."<br>";
 
 //começando calculos
 
@@ -192,7 +145,39 @@ do {
 	}
   ?>
 
+<table>
+	
+		
+<?php
+ $resultado = 0;
+ for ($i=0; $i < $l ; $i++) { 
+		for ($j=0; $j < $c ; $j++) { 
+			
+			if ($j+1 == $c && $resultado!=1) {?>
+			<tr>
+				<th>
+					<label>
+						O Maior Lucro é de: <?php echo number_format((float)$matrixSolu[$i][$j], 2, '.', '');?>
+					</label>
+				</th>
+			</tr>
 
+<?php 				$resultado = 1;
+			}elseif ($resultado ==1 && $j +1 == $c && $matrixSolu[$i][$i] == 1) {?>
+				<tr>
+					<th>
+						<label>
+							O Maior Valor de X <?php echo $i-1; ?> : <?php echo number_format((float)$matrixSolu[$i][$c-1], 2, '.', ''); ?>
+						</label>
+					</th>
+				</tr>
+<?php 			}
+			
+		}
+	
+	} ?>
+	
+</table>
 
 </body>
 </html>
